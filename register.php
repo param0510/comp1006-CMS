@@ -1,6 +1,22 @@
 <?php
     $pageName = 'Register';
     require 'includes/header.php';
+    $id = '';
+    if(isset($_GET['id']))
+    {
+        $id = $_GET['id'];
+
+        require 'includes/db-conn.php';
+        $sql = 'SELECT * FROM users WHERE userId = :id';
+        $cmd = $db->prepare($sql);
+        $cmd->bindParam(':id', $id, PDO::PARAM_INT);
+        $cmd->execute();
+        $user=$cmd->fetch();
+
+        $username = $user['username'];
+
+        $db = null;
+    }
 ?>
 
 <section class="vh-100 gradient-custom md-4">
@@ -12,14 +28,14 @@
 
           <!-- Add a confirm password entry also!!! -->
 
-            <form method="post" action="save-register.php" class="mb-md-5 mt-md-4 pb-5">
+            <form method="post" action="save-register.php" class="mb-md-5 mt-md-4 pb-1">
 
               <h2 class="fw-bold mb-2 text-uppercase">Register</h2>
               <p class="text-white-50 mb-5">Please enter your email and password to register here!</p>
 
               <div class="form-outline form-white mb-4">
                 <label class="form-label" for="username">  
-                    <input type="email" id="username" name="username" class="form-control form-control-lg" placeholder="Email" />
+                    <input type="email" id="username" name="username" class="form-control form-control-lg" value="<?php if(!empty($id)){ echo $username; } ?>" placeholder="Email" />
                 </label>
               </div>
 
@@ -30,7 +46,14 @@
                 </label>
               </div>
 
+              <div class="form-outline form-white mb-4">
+                <label class="form-label" for="confirmPassword">
+                <input type="password" id="confirmPassword" name="confirmPassword" class="form-control form-control-lg" placeholder="Confirm Password"/>
+                </label>
+              </div>
 
+              <input name="id" type="number" value="<?php if(!empty($id)){ echo $id; } ?>" hidden>
+              
               <button class="btn btn-outline-light btn-lg px-5" type="submit">Sign Up</button>
 
             </form >

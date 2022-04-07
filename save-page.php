@@ -3,6 +3,13 @@
     $pageName = 'Add/Edit Page';
     require 'includes/header.php';
 
+    $id = '';
+    if(!empty(trim($_POST['id'])))
+    {
+        $id = $_POST['id'];
+
+    }
+
     $pageName = $_POST['pageName'];
     $heading = $_POST['heading'];
     $content = $_POST['content'];
@@ -22,12 +29,27 @@
         {
 
             require 'includes/db-conn.php';
-            $sql = 'INSERT INTO pages(pageName, heading, content) 
+            if(!empty($id))
+            {
+                $sql = "UPDATE pages 
+                        SET pageName = :pageName,
+                            heading = :heading,
+                            content = :content
+                        WHERE id = :id";
+            }
+            else
+            {
+                $sql = 'INSERT INTO pages(pageName, heading, content) 
                                 VALUES(:pageName, :heading, :content)';
+            }
             $cmd = $db->prepare($sql);
             $cmd->bindParam(':pageName', $pageName, PDO::PARAM_STR, 40);
             $cmd->bindParam(':heading', $heading, PDO::PARAM_STR, 200);
             $cmd->bindParam(':content', $content, PDO::PARAM_STR);
+            if(!empty($id))
+            {
+                $cmd->bindParam(':id', $id, PDO::PARAM_INT);
+            }
             $cmd->execute();
             $db = null;
             echo    '<div class="alert alert-success" role="alert">

@@ -3,8 +3,17 @@
     require 'includes/header.php';
     // $username = '';
 
+    $id = '';
+    if(!empty(trim($_POST['id'])))
+    {
+        $id = $_POST['id'];
+
+    } 
+
     $username = $_POST['username'];
     $password = $_POST['password'];
+    $confirmPassword = $_POST['confirmPassword'];
+
     $flag = true;
     if(empty(trim($username)))
     {
@@ -15,10 +24,25 @@
     }
     if(empty(trim($password)))
     {
-    echo    '<div class="alert alert-warning" role="alert">
-                Password is empty!!
-            </div>';
-            $flag = false;
+        echo    '<div class="alert alert-warning" role="alert">
+                    Password is empty!!
+                </div>';
+        $flag = false;
+    }
+    if(empty(trim($confirmPassword)))
+    {
+        echo    '<div class="alert alert-warning" role="alert">
+                    Confirmation Password not given!!
+                </div>';
+        $flag = false;
+
+    }
+    if($confirmPassword != $password)
+    {
+        echo    '<div class="alert alert-warning" role="alert">
+                    Passwords do not match!
+                </div>';
+        $flag = false;
     }
 
     if($flag)
@@ -40,8 +64,19 @@
             }
             else
             {
-                $sql = "INSERT INTO users(username, password) 
-                                VALUES (:username, :password)";
+                if(!empty($id))
+                {
+                    $sql = "UPDATE users 
+                            SET username = :username,
+                                password = :password
+                            WHERE userId = :id";
+                }
+                else
+                {
+                    $sql = "INSERT INTO users(username, password) 
+                                    VALUES (:username, :password)";
+                }
+                
 
                 $password = password_hash($password, PASSWORD_DEFAULT);
 
@@ -49,11 +84,16 @@
                 $cmd->bindParam(':username', $username, PDO::PARAM_STR, 60);
                 $cmd->bindParam(':password', $password, PDO::PARAM_STR, 250);
 
+                if(!empty($id))
+                {
+                    $cmd->bindParam(':id', $id, PDO::PARAM_INT);
+                }
+
                 $cmd->execute();
 
                 $db = null;
                 echo    '<div class="alert alert-success" role="alert">
-                            User successfully created   
+                            User successfully created/updated   
                         </div>';
             }
         }
@@ -64,6 +104,9 @@
                     '</div>';
             
         }
+    }
+    else{
+
     }
 ?>
 </body>

@@ -46,9 +46,14 @@
                                 </tr>';
                         }
                     }
+                    echo    '<tr>
+                                <td><a class="btn btn-success" href="add_edit-page.php">Add page</a></td>
+                                <td></td>
+                                <td></td>   
+                                <td></td>
+                            </tr>';
                    
                 ?>
-                
                 
             </tbody>
         </table>

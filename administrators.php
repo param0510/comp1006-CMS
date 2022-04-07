@@ -45,6 +45,12 @@
                                 </tr>';
                         }
                     }
+                    echo    '<tr>
+                                <td><a class="btn btn-success" href="register.php">Add user</a></td>
+                                <td></td>
+                                <td></td>   
+                                <td></td>
+                            </tr>';
                    
                 ?>
                 
