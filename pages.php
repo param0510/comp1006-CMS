@@ -1,4 +1,5 @@
 <?php
+    require 'includes/auth.php';
     $pageName = 'Pages';
     require 'includes/header.php';
 

@@ -16,14 +16,14 @@
               <p class="text-white-50 mb-5">Please enter your login details!</p>
 
               <div class="form-outline form-white mb-4">
-                <label class="form-label" for="typeEmailX">  
-                    <input type="email" id="typeEmailX" class="form-control form-control-lg" placeholder="Email" />
+                <label class="form-label" for="username">  
+                    <input type="email" id="username" name="username" class="form-control form-control-lg" placeholder="Email" />
                 </label>
               </div>
 
               <div class="form-outline form-white mb-4">
-                <label class="form-label" for="typePasswordX">
-                <input type="password" id="typePasswordX" class="form-control form-control-lg" placeholder="Password"/>
+                <label class="form-label" for="password">
+                <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="Password"/>
                 </label>
               </div>
 

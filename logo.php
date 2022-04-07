@@ -1,4 +1,5 @@
 <?php
+    require 'includes/auth.php';
     $pageName = 'Logo';
     require 'includes/header.php';
 ?>

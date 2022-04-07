@@ -2,6 +2,7 @@
     $pageName = 'Saving registration...';
     require 'includes/header.php';
     // $username = '';
+
     $username = $_POST['username'];
     $password = $_POST['password'];
     $flag = true;

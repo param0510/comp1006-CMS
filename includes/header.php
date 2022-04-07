@@ -24,7 +24,11 @@
 
             <?php
             // please change this condition
-            if(true)
+            if(session_status() == PHP_SESSION_NONE)
+            {
+                session_start();
+            }
+            if(!empty($_SESSION['username']))
             {
                 // static navbar
             echo '<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
@@ -50,7 +54,7 @@
                 <div class="collapse navbar-collapse align-items-center" id="navbarTogglerDemo02">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                        <span class="nav-link">Username</span>
+                        <span class="nav-link">'.$_SESSION['username'].'</span>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="logout.php">Logout</a>
@@ -64,15 +68,36 @@
 
                 // make this dynamic
             echo '<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                        </li>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">';
+
+                    try
+                    {
+                        require 'includes/db-conn.php';
+                        $sql = 'SELECT * FROM pages ORDER BY id';
+                        $cmd= $db->prepare($sql);
+                        $cmd -> execute();
+                        $pages = $cmd->fetchAll();
+                        $db = null;
+
+                        foreach ($pages as $page) {
+                            $id= $page['id'];
+                            $name = $page['pageName'];
+                            echo    '<li class="nav-item">
+                                        <a class="nav-link" href="index.php?id='.$id.'">'.$name.'</a>
+                                    </li>';
+                        }
+
+                    }
+                    catch(Exception $error)
+                    {
+                        echo    '<div class="alert alert-danger" role="alert">'
+                                . $error -> getMessage() .  
+                                '</div>';
+                    }
+
                         
-                    </ul>
+                        
+            echo    '</ul>
                 
                 </div>
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo02">

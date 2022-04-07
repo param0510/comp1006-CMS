@@ -1,4 +1,5 @@
 <?php
+    require 'includes/auth.php';
     $pageName = 'Add/Edit Page';
     require 'includes/header.php';
 

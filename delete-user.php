@@ -1,4 +1,5 @@
 <?php
+    require 'includes/auth.php';
     $pageName = 'deleting user data...';
     require 'includes/header.php';
 
@@ -20,7 +21,7 @@
                             User record was deleted.   
                         </div>';
         //  use this to relocate to the adminstrators list 
-            // header("location:administrators.php");
+            header("location:administrators.php");
         }
         catch(Exception $error)
         {

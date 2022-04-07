@@ -1,4 +1,5 @@
 <?php
+    require 'includes/auth.php';
     $pageName = 'deleting page data...';
     require 'includes/header.php';
 
@@ -20,7 +21,7 @@
                             The page record was deleted.   
                         </div>';
         //  use this to relocate to the pages list 
-            // header("location:pages.php");
+            header("location:pages.php");
         }
         catch(Exception $error)
         {
