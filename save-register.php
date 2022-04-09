@@ -1,53 +1,53 @@
 <?php
     $pageName = 'Saving registration...';
     require 'includes/header.php';
-    // $username = '';
 
-    $id = '';
-    if(!empty(trim($_POST['id'])))
+    try
     {
-        $id = $_POST['id'];
 
-    } 
-
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $confirmPassword = $_POST['confirmPassword'];
-
-    $flag = true;
-    if(empty(trim($username)))
-    {
-    echo    '<div class="alert alert-warning" role="alert">
-                Username is empty!!
-            </div>';
+        $id = '';
+        if(!empty(trim($_POST['id'])))
+        {
+            $id = $_POST['id'];
+    
+        } 
+    
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $confirmPassword = $_POST['confirmPassword'];
+    
+        $flag = true;
+        if(empty(trim($username)))
+        {
+        echo    '<div class="alert alert-warning" role="alert">
+                    Username is empty!!
+                </div>';
+                $flag = false;
+        }
+        if(empty(trim($password)))
+        {
+            echo    '<div class="alert alert-warning" role="alert">
+                        Password is empty!!
+                    </div>';
             $flag = false;
-    }
-    if(empty(trim($password)))
-    {
-        echo    '<div class="alert alert-warning" role="alert">
-                    Password is empty!!
-                </div>';
-        $flag = false;
-    }
-    if(empty(trim($confirmPassword)))
-    {
-        echo    '<div class="alert alert-warning" role="alert">
-                    Confirmation Password not given!!
-                </div>';
-        $flag = false;
-
-    }
-    if($confirmPassword != $password)
-    {
-        echo    '<div class="alert alert-warning" role="alert">
-                    Passwords do not match!
-                </div>';
-        $flag = false;
-    }
-
-    if($flag)
-    {
-        try
+        }
+        if(empty(trim($confirmPassword)))
+        {
+            echo    '<div class="alert alert-warning" role="alert">
+                        Confirmation Password not given!!
+                    </div>';
+            $flag = false;
+    
+        }
+        if($confirmPassword != $password)
+        {
+            echo    '<div class="alert alert-warning" role="alert">
+                        Passwords do not match!
+                    </div>';
+            $flag = false;
+        }
+    
+        if($flag)
         {
             require 'includes/db-conn.php';
             $sql = 'SELECT * FROM users WHERE username = :username';
@@ -77,36 +77,30 @@
                                     VALUES (:username, :password)";
                 }
                 
-
+    
                 $password = password_hash($password, PASSWORD_DEFAULT);
-
+    
                 $cmd = $db->prepare($sql);
                 $cmd->bindParam(':username', $username, PDO::PARAM_STR, 60);
                 $cmd->bindParam(':password', $password, PDO::PARAM_STR, 250);
-
+    
                 if(!empty($id))
                 {
                     $cmd->bindParam(':id', $id, PDO::PARAM_INT);
                 }
-
+    
                 $cmd->execute();
-
+    
                 $db = null;
                 echo    '<div class="alert alert-success" role="alert">
                             User successfully created/updated   
                         </div>';
             }
-        }
-        catch(Exception $error)
-        {
-            echo    '<div class="alert alert-danger" role="alert">'
-                    . $error -> getMessage() .  
-                    '</div>';
-            
+           
         }
     }
-    else{
-
+    catch(Exception $e){
+        header("location:error.php");
     }
 ?>
 </body>

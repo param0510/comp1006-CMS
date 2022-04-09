@@ -17,13 +17,13 @@
 
               <div class="form-outline form-white mb-4">
                 <label class="form-label" for="username">  
-                    <input type="email" id="username" name="username" class="form-control form-control-lg" placeholder="Email" />
+                    <input type="email" id="username" name="username" class="form-control form-control-lg" placeholder="Email" required/>
                 </label>
               </div>
 
               <div class="form-outline form-white mb-4">
                 <label class="form-label" for="password">
-                <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="Password"/>
+                <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="Password" required/>
                 </label>
               </div>
 

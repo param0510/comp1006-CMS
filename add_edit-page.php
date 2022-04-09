@@ -2,23 +2,30 @@
     require 'includes/auth.php';
     $pageName = 'Add/Edit Page';
     require 'includes/header.php';
-    $id = '';
-    if(isset($_GET['id']))
+    try
     {
-        $id = $_GET['id'];
-
-        require 'includes/db-conn.php';
-        $sql = 'SELECT * FROM pages WHERE id = :id';
-        $cmd = $db->prepare($sql);
-        $cmd->bindParam(':id', $id, PDO::PARAM_INT);
-        $cmd->execute();
-        $page=$cmd->fetch();
-
-        $name = $page['pageName'];
-        $heading = $page['heading'];
-        $content = $page['content'];
-
-        $db = null;
+        $id = '';
+        if(isset($_GET['id']))
+        {
+            $id = $_GET['id'];
+    
+            require 'includes/db-conn.php';
+            $sql = 'SELECT * FROM pages WHERE id = :id';
+            $cmd = $db->prepare($sql);
+            $cmd->bindParam(':id', $id, PDO::PARAM_INT);
+            $cmd->execute();
+            $page=$cmd->fetch();
+    
+            $name = $page['pageName'];
+            $heading = $page['heading'];
+            $content = $page['content'];
+    
+            $db = null;
+        }
+    }
+    catch(Exception $error)
+    {
+        header("location:error.php");
     }
 ?>
 
@@ -28,7 +35,7 @@
         <fieldset class="form-group row my-4">
             <label for="pageName" class="col-sm-2 col-form-label">Page Name</label>
             <div class="col-sm-10">
-            <input type="text" class="form-control" id="pageName" name="pageName" value="<?php if(!empty($id)){ echo $name; } ?>" placeholder="Name of your page...">
+            <input type="text" class="form-control" id="pageName" name="pageName" value="<?php if(!empty($id)){ echo $name; } ?>" placeholder="Name of your page..." required>
             </div>
         </fieldset>
         <fieldset class="form-group row my-4">

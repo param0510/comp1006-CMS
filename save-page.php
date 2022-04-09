@@ -3,31 +3,38 @@
     $pageName = 'Add/Edit Page';
     require 'includes/header.php';
 
-    $id = '';
-    if(!empty(trim($_POST['id'])))
+    try
     {
-        $id = $_POST['id'];
-
-    }
-
-    $pageName = $_POST['pageName'];
-    $heading = $_POST['heading'];
-    $content = $_POST['content'];
-
-    $flag = true;
-    if(empty(trim($pageName)))
-    {
-        echo    '<div class="alert alert-warning" role="alert">
-                    Minimum requirement : Page name is empty!!!
-                </div>';
-        $flag = false;
-    }
-
-    if($flag)
-    {
-        try
+        $id = '';
+        if(!empty(trim($_POST['id'])))
         {
-
+            $id = $_POST['id'];
+    
+        }
+    
+        $pageName = $_POST['pageName'];
+        $heading = $_POST['heading'];
+        $content = $_POST['content'];
+    
+        $flag = true;
+        // I only validated the page name as it seems as the only basic minimum requirement to create a page
+        if(empty(trim($pageName)) || strlen($pageName)>40)
+        {
+            echo    '<div class="alert alert-warning" role="alert">
+                        Page name cannot be empty or more than 40 characters in length!!!
+                    </div>';
+            $flag = false;
+        }
+        if(strlen($heading)>200)
+        {
+            echo    '<div class="alert alert-warning" role="alert">
+                        Page heading cannot be more than 200 characters in length!!!
+                    </div>';
+            $flag = false;
+        }
+    
+        if($flag)
+        {
             require 'includes/db-conn.php';
             if(!empty($id))
             {
@@ -56,12 +63,10 @@
                             Page successfully updated  
                         </div>';
         }
-        catch(Exception $error)
-        {
-            echo    '<div class="alert alert-danger" role="alert">'
-                    . $error -> getMessage() .  
-                    '</div>';
-        }
+    }
+    catch(Exception $e)
+    {
+        header("location:error.php");
     }
 
 ?>

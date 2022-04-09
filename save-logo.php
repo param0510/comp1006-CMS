@@ -1,4 +1,5 @@
 <?php
+    require 'includes/header.php';
     try
     {
         $image = $_FILES['image'];
@@ -63,10 +64,8 @@
     }
     catch(Exception $error)
     {
-        echo    '<div class="alert alert-danger" role="alert">'
-                    . $error -> getMessage() .  
-                    '</div>';
         // redirect to error page
+        header("location:error.php");
     }
 
 

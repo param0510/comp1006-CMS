@@ -1,21 +1,28 @@
 <?php
     $pageName = 'Register';
     require 'includes/header.php';
-    $id = '';
-    if(isset($_GET['id']))
+    try
     {
-        $id = $_GET['id'];
-
-        require 'includes/db-conn.php';
-        $sql = 'SELECT * FROM users WHERE userId = :id';
-        $cmd = $db->prepare($sql);
-        $cmd->bindParam(':id', $id, PDO::PARAM_INT);
-        $cmd->execute();
-        $user=$cmd->fetch();
-
-        $username = $user['username'];
-
-        $db = null;
+      $id = '';
+      if(isset($_GET['id']))
+      {
+          $id = $_GET['id'];
+  
+          require 'includes/db-conn.php';
+          $sql = 'SELECT * FROM users WHERE userId = :id';
+          $cmd = $db->prepare($sql);
+          $cmd->bindParam(':id', $id, PDO::PARAM_INT);
+          $cmd->execute();
+          $user=$cmd->fetch();
+  
+          $username = $user['username'];
+  
+          $db = null;
+      }
+    }
+    catch(Exception $e)
+    {
+      header("location:error.php");
     }
 ?>
 
@@ -35,20 +42,20 @@
 
               <div class="form-outline form-white mb-4">
                 <label class="form-label" for="username">  
-                    <input type="email" id="username" name="username" class="form-control form-control-lg" value="<?php if(!empty($id)){ echo $username; } ?>" placeholder="Email" />
+                    <input type="email" id="username" name="username" class="form-control form-control-lg" value="<?php if(!empty($id)){ echo $username; } ?>" placeholder="Email" required />
                 </label>
               </div>
 
               <!-- Confirm password required! -->
               <div class="form-outline form-white mb-4">
                 <label class="form-label" for="password">
-                <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="Password"/>
+                <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="Password" required/>
                 </label>
               </div>
 
               <div class="form-outline form-white mb-4">
                 <label class="form-label" for="confirmPassword">
-                <input type="password" id="confirmPassword" name="confirmPassword" class="form-control form-control-lg" placeholder="Confirm Password"/>
+                <input type="password" id="confirmPassword" name="confirmPassword" class="form-control form-control-lg" placeholder="Confirm Password" required/>
                 </label>
               </div>
 

@@ -1,34 +1,41 @@
 <?php
     
-    
-    if(isset($_GET['id']))
+    try
     {
-        $id = $_GET['id'];
-        require 'includes/db-conn.php';
-        $sql = 'SELECT * FROM pages WHERE id = :id';
-        $cmd = $db->prepare($sql);
-        $cmd->bindParam(':id', $id, PDO::PARAM_INT);
-        $cmd->execute();
-        $page = $cmd->fetch();
-        
-        $db = null;
+        if(isset($_GET['id']))
+        {
+            $id = $_GET['id'];
+            require 'includes/db-conn.php';
+            $sql = 'SELECT * FROM pages WHERE id = :id';
+            $cmd = $db->prepare($sql);
+            $cmd->bindParam(':id', $id, PDO::PARAM_INT);
+            $cmd->execute();
+            $page = $cmd->fetch();
+            
+            $db = null;
+        }
+        else
+        {
+            // redirect to error page 
+            // exit(); Stop any other code from getting executed
+    
+            // or do this
+            require 'includes/db-conn.php';
+            $sql = 'SELECT * FROM pages ORDER BY id';
+            $cmd = $db->prepare($sql);
+            $cmd->execute();
+            $page = $cmd->fetch();
+            $id = $page['id'];
+            $db = null;
+        }
+            $pageName = $page['pageName'];
+            $heading = $page['heading'];
+            $content = $page['content'];
     }
-    else{
-        // redirect to error page 
-        // exit(); Stop any other code from getting executed
-
-        // or do this
-        require 'includes/db-conn.php';
-        $sql = 'SELECT * FROM pages ORDER BY id';
-        $cmd = $db->prepare($sql);
-        $cmd->execute();
-        $page = $cmd->fetch();
-        $id = $page['id'];
-        $db = null;
+    catch(Exception $e)
+    {
+        header("location:error.php");
     }
-        $pageName = $page['pageName'];
-        $heading = $page['heading'];
-        $content = $page['content'];
 
     $pageName = "Public Site | $pageName";
     require 'includes/header.php';

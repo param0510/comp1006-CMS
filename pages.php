@@ -14,9 +14,7 @@
     }
     catch(Exception $error)
     {
-        echo    '<div class="alert alert-danger" role="alert">'
-                    . $error -> getMessage() .  
-                    '</div>';
+        header("location:error.php");
     }
 ?>
     <main class="m-3">
@@ -36,14 +34,16 @@
                     if($pages)
                     {
                         // Error with confirm Delete function in js
+                        $serialNo = 1;
                         foreach ($pages as  $page) 
                         {
                             echo '<tr>
-                                    <th scope="row">'.$page['id'].'</th>
+                                    <th scope="row">'.$serialNo.'</th>
                                     <td>'.$page['pageName'].'</td>
                                     <td><a class="btn btn-outline-primary" href="add_edit-page.php?id='.$page['id'].'">Edit</a></td>
                                     <td><a class="btn btn-outline-danger" onClick="return confirmDelete()" href="delete-page.php?id='.$page['id'].'">Delete</a></td>
                                 </tr>';
+                            $serialNo = $serialNo +1;
                         }
                     }
                     echo    '<tr>

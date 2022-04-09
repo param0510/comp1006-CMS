@@ -14,9 +14,7 @@
     }
     catch(Exception $error)
     {
-        echo    '<div class="alert alert-danger" role="alert">'
-                    . $error -> getMessage() .  
-                    '</div>';
+        header("location:error.php");
     }
 ?>
     <main class="m-3">
@@ -35,14 +33,16 @@
                 <?php
                     if($users)
                     {
+                        $serialNo = 1;
                         foreach ($users as  $user) 
                         {
                             echo '<tr>
-                                    <th scope="row">'.$user['userId'].'</th>
+                                    <th scope="row">'.$serialNo.'</th>
                                     <td>'.$user['username'].'</td>
                                     <td><a class="btn btn-primary" href="register.php?id='.$user['userId'].'">Edit</a></td>
                                     <td><a class="btn btn-danger" onclick = "return confirmDelete()" href="delete-user.php?id='.$user['userId'].'" >Delete</a></td>
                                 </tr>';
+                            $serialNo = $serialNo +1;
                         }
                     }
                     echo    '<tr>
