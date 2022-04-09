@@ -68,5 +68,6 @@
         header("location:error.php");
     }
 
+    require 'includes/footer.php';
 
 ?>

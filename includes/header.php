@@ -9,23 +9,35 @@
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
     <script src="js/script.js" type="text/javascript" defer></script>
     <title><?php echo $pageName; ?></title>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
         
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="index.php">
                 <?php
-                    include 'db-conn.php';
-                    $sql = 'SELECT * FROM logo';
-                    $cmd = $db->prepare($sql);
-                    $cmd->execute();
-                    $logo = $cmd->fetch();
-                    $imageName = $logo['name'];
-                    $db =null;
-                    echo '<img src="logo/'.$imageName.'" alt="logo" class="" height="56">';
+                    try
+                    {
+                        include 'db-conn.php';
+                        $sql = 'SELECT * FROM logo';
+                        $cmd = $db->prepare($sql);
+                        $cmd->execute();
+                        $logo = $cmd->fetch();
+                        $imageName = $logo['name'];
+                        $db =null;
+                        echo '<img src="logo/'.$imageName.'" alt="logo" class="" height="56">';
+                    }
+                    catch(Exception $e)
+                    {
+                        header("location:error.php");
+                    }
                 ?>
             </a>
 
@@ -102,9 +114,7 @@
                     }
                     catch(Exception $error)
                     {
-                        echo    '<div class="alert alert-danger" role="alert">'
-                                . $error -> getMessage() .  
-                                '</div>';
+                        header("location:error.php");
                     }
 
                         

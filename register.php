@@ -26,6 +26,7 @@
     }
 ?>
 
+<main>
 <section class="vh-100 gradient-custom md-4">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -38,24 +39,24 @@
             <form method="post" action="save-register.php" class="mb-md-5 mt-md-4 pb-1">
 
               <h2 class="fw-bold mb-2 text-uppercase">Register</h2>
-              <p class="text-white-50 mb-5">Please enter your email and password to register here!</p>
+              <p class="text-white-50 mb-5">Please enter an email and password to register here! <br><br> Passwords must be a minimum of 8 characters, including 1 digit, 1 upper-case letter, and 1 lower-case letter!</p>
 
               <div class="form-outline form-white mb-4">
                 <label class="form-label" for="username">  
-                    <input type="email" id="username" name="username" class="form-control form-control-lg" value="<?php if(!empty($id)){ echo $username; } ?>" placeholder="Email" required />
+                    <input type="email" id="username" name="username" class="form-control form-control-lg" value="<?php if(!empty($id)){ echo $username; } ?>" placeholder="email@email.com" required />
                 </label>
               </div>
 
               <!-- Confirm password required! -->
               <div class="form-outline form-white mb-4">
                 <label class="form-label" for="password">
-                <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="Password" required/>
+                <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required/>
                 </label>
               </div>
 
               <div class="form-outline form-white mb-4">
                 <label class="form-label" for="confirmPassword">
-                <input type="password" id="confirmPassword" name="confirmPassword" class="form-control form-control-lg" placeholder="Confirm Password" required/>
+                <input type="password" id="confirmPassword" name="confirmPassword"  class="form-control form-control-lg" placeholder="Confirm Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required/>
                 </label>
               </div>
 
@@ -76,7 +77,8 @@
     </div>
   </div>
 </section>
+</main>
 
-    
-</body>
-</html>
+<?php
+  require 'includes/footer.php';
+?>

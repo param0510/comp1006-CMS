@@ -59,14 +59,14 @@
             }
             $cmd->execute();
             $db = null;
-            echo    '<div class="alert alert-success" role="alert">
-                            Page successfully updated  
-                        </div>';
+            header("location:pages.php?success=true");
         }
     }
     catch(Exception $e)
     {
         header("location:error.php");
     }
+
+    require 'includes/footer.php';
 
 ?>

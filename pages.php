@@ -2,7 +2,16 @@
     require 'includes/auth.php';
     $pageName = 'Pages';
     require 'includes/header.php';
+    if(isset($_GET['success']))
+    {
 
+      if($_GET['success'])
+      {
+        echo  '<div class="alert alert-success" role="alert">
+                Page list successfully updated!  
+              </div>';
+      }
+    }
     try{
 
         require 'includes/db-conn.php';
@@ -14,6 +23,7 @@
     }
     catch(Exception $error)
     {
+        echo 'im heree';
         header("location:error.php");
     }
 ?>
@@ -58,5 +68,6 @@
             </tbody>
         </table>
     </main>
-</body>
-</html>
+<?php
+  require 'includes/footer.php';
+?>

@@ -93,7 +93,7 @@
     
                 $db = null;
                 echo    '<div class="alert alert-success" role="alert">
-                            User successfully created/updated   
+                            User list successfully updated   
                         </div>';
             }
            
@@ -103,5 +103,6 @@
         header("location:error.php");
     }
 ?>
-</body>
-</html>
+<?php
+    require 'includes/footer.php';
+?>
