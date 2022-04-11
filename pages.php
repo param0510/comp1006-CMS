@@ -1,17 +1,12 @@
+<!-- This page displays the page list present in the database -->
+<!-- It also gives users the ability to add/edit other pages -->
 <?php
+
+    // Authorizing the private page
     require 'includes/auth.php';
     $pageName = 'Pages';
     require 'includes/header.php';
-    if(isset($_GET['success']))
-    {
-
-      if($_GET['success'])
-      {
-        echo  '<div class="alert alert-success" role="alert">
-                Page list successfully updated!  
-              </div>';
-      }
-    }
+    // Trying to connect to the database to retrieve the list of pages available
     try{
 
         require 'includes/db-conn.php';
@@ -23,15 +18,29 @@
     }
     catch(Exception $error)
     {
-        echo 'im heree';
         header("location:error.php");
     }
+
+    // Message display for the action produced - page list update in this case
+    if(isset($_GET['success']))
+    {
+
+      if($_GET['success'])
+      {
+        echo  '<div class="alert alert-success" role="alert">
+                Page list successfully updated!  
+              </div>';
+      }
+    }
 ?>
+<!-- DOM displaying all the list of pages present in the database -->
+
     <main class="m-3">
         
         <h2>List of Pages</h2>
         <table class="table table-striped mt-5 w-75 m-auto" >
             <thead>
+                <!-- Table headings -->
                 <tr>
                 <th scope="col">#</th>
                 <th scope="col">Page Name</th>
@@ -43,7 +52,8 @@
                 <?php
                     if($pages)
                     {
-                        // Error with confirm Delete function in js
+                        // Displaying each user data in seperate row
+                        // Giving the function to update and delete the users in the table
                         $serialNo = 1;
                         foreach ($pages as  $page) 
                         {
@@ -56,6 +66,7 @@
                             $serialNo = $serialNo +1;
                         }
                     }
+                    // Add user feature
                     echo    '<tr>
                                 <td><a class="btn btn-success" href="add_edit-page.php">Add page</a></td>
                                 <td></td>

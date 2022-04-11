@@ -1,6 +1,10 @@
+<!-- This is the login page which allows users to login, for accessing admin features -->
 <?php
+    // Setting the page title
     $pageName = 'Login';
     require 'includes/header.php';
+  
+    // Invalid login credentials message generator
     if(isset($_GET['invalid']))
     {
 
@@ -11,9 +15,22 @@
               </div>';
       }
     }
+
+    // Successful list update message generator
+    if(isset($_GET['create']))
+    {
+
+      if($_GET['create'])
+      {
+        echo  '<div class="alert alert-success" role="alert">
+                New user successfully created! 
+              </div>';
+      }
+    }
             
 ?>
 <main>
+  <!-- I got most of the code structure from bootstrap itself to make it more attractive!!! -->
 <section class="vh-100 gradient-custom md-4">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -21,6 +38,7 @@
         <div class="card bg-dark text-white" style="border-radius: 1rem;">
           <div class="card-body p-5 text-center">
 
+            <!-- Form asking for user credentials -->
             <form method="post" action="check-login.php" class="mb-md-5 mt-md-4 pb-5">
 
               <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
@@ -38,11 +56,10 @@
                 </label>
               </div>
 
-
               <button class="btn btn-outline-light btn-lg px-5" type="submit">Sign In</button>
 
             </form >
-
+            <!-- Link for registering -->
             <div>
               <p class="mb-0">Don't have an account? <a href="register.php" class="text-white-50 fw-bold">Sign Up</a>
               </p>

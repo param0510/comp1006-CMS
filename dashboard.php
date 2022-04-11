@@ -1,8 +1,12 @@
+<!-- This is the user dashboard which contains links to all the user perks -->
 <?php
+// Including authorization and header files
     require 'includes/auth.php';
+    // Setting up the title to be displayed
     $pageName = 'Dashboard';
     require 'includes/header.php';
 ?>
+<!-- Displaying the dashboard contents and links to various user features -->
   <main>
     
     <h2 class="m-3">Welcome to the Dashboard</h2>

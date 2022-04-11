@@ -1,10 +1,13 @@
-<?php
+<!-- This page allows users to update the logo of their website -->
+<?php   
+    // Including authorization and header files
     require 'includes/auth.php';
     $pageName = 'Logo';
     require 'includes/header.php';
 ?>
     <h2 class="m-3">Change your logo here</h2>
 
+    <!-- form accepting jpeg/png files to upload -->
     <form action="save-logo.php" method="post" enctype="multipart/form-data">
         <div class="m-4 w-25 ">
             <label for="image" class="form-label"></label>
@@ -17,5 +20,6 @@
         </fieldset>
     </form>
 <?php
-  require 'includes/footer.php';
+    // Footer file inclusion
+    require 'includes/footer.php';
 ?>
