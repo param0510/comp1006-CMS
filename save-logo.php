@@ -74,7 +74,18 @@
                 // redirecting to the dashboard on succesfull upload
                 header("location:dashboard.php");
             }
+            else
+            {
+                // Redirection to logo page for wrong extension along with error message
+                echo    '<script>
+                            window.location.replace("logo.php?extension=false");
+                        </script>';
+            }
 
+        }
+        else{
+            // Redirection to logo page for no image provided along with error message
+            header("location:logo.php?noImage=true");
         }
         
 
