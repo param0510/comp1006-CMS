@@ -53,12 +53,13 @@
     if($flag)
     {
         // Displayin page contents according to the page id requested
+        // Displaying content with line breaks using textarea
         echo '<main class="m-4">
                 <h2 class="mb-4">'.$heading.'</h2>
                 <section class="w-75 m-auto">
-                    <p>'
+                    <textarea id="display" rows=20 disabled>'
                         .$content.
-                    '</p>
+                    '</textarea>
                 </section>
             </main>';
     }

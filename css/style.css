@@ -2,3 +2,11 @@
 *{
     font-family: 'Oswald',sans-serif;
 }
+/* Styling for the content getting displayed on each page */
+#display{
+    resize: none;
+    width: 100%;
+    border: none;
+    background:none;
+    color: #456c4a;
+}
