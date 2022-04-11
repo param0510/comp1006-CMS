@@ -138,7 +138,9 @@
                 }
                 else{
                     // If a new user entry is created, redirect to the login page along with successful updation message
-                    header("location:login.php?create=true");
+                    echo    '<script>
+                                window.location.replace("login.php?create=true");
+                            </script>';
                 }
             }
            
